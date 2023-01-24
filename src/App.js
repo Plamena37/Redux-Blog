@@ -1,6 +1,14 @@
 import "./index.scss";
-function App() {
-  return <div>OPA</div>;
-}
+import PostsList from "./features/posts/PostsList";
+import AddPostForm from "./features/posts/AddPostForm";
+
+const App = () => {
+  return (
+    <div>
+      <AddPostForm />
+      <PostsList />
+    </div>
+  );
+};
 
 export default App;

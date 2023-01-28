@@ -4,10 +4,10 @@ import AddPostForm from "./features/posts/AddPostForm";
 
 const App = () => {
   return (
-    <div>
+    <main className="App">
       <AddPostForm />
       <PostsList />
-    </div>
+    </main>
   );
 };
 

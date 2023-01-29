@@ -5,10 +5,11 @@ import {
   getPostsError,
   fetchPosts,
 } from "./postsSlice";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
+  const effectRan = useRef(false);
   const dispatch = useDispatch();
 
   const posts = useSelector(selectAllPosts);
@@ -16,8 +17,17 @@ const PostsList = () => {
   const error = useSelector(getPostsError);
 
   useEffect(() => {
-    if (postStatus === "idle") {
-      dispatch(fetchPosts());
+    // Fix for running useEffect twice
+    if (effectRan.current === false) {
+      if (postStatus === "idle") {
+        dispatch(fetchPosts());
+      }
+
+      console.log("MOUNT");
+
+      return () => {
+        effectRan.current = true;
+      };
     }
   }, [postStatus, dispatch]);
 

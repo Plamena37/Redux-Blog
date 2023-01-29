@@ -1,24 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useRef } from "react";
-import {
-  selectAllPosts,
-  getPostsStatus,
-  getPostsError,
-  fetchPosts,
-} from "./postsSlice";
+import { useSelector } from "react-redux";
+import { selectAllPosts, getPostsStatus, getPostsError } from "./postsSlice";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
-  const effectRan = useRef(false);
-  const dispatch = useDispatch();
+  // const effectRan = useRef(false);
 
   const posts = useSelector(selectAllPosts);
   const postStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
 
-  useEffect(() => {
+  /* useEffect(() => {
     // Fix for running useEffect twice
     if (effectRan.current === false) {
       if (postStatus === "idle") {
@@ -30,16 +23,15 @@ const PostsList = () => {
       };
     }
   }, [postStatus, dispatch]);
+  */
 
   let content;
   if (postStatus === "loading") {
-    {
-      /* content = <p>Loading...</p>; */
-    }
     content = (
       <Stack spacing={1}>
-        <Skeleton variant="rounded" width={500} height={100} />
-        <Skeleton variant="rounded" width={500} height={100} />
+        <Skeleton variant="rounded" width={500} height={250} />
+        <Skeleton variant="rounded" width={500} height={250} />
+        <Skeleton variant="rounded" width={500} height={250} />
       </Stack>
     );
   } else if (postStatus === "succeeded") {
@@ -55,7 +47,7 @@ const PostsList = () => {
 
   return (
     <section>
-      <h2>Posts</h2>
+      {/* <h2>Posts</h2> */}
       {content}
     </section>
   );

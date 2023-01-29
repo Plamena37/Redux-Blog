@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
 import {
   selectAllPosts,
   getPostsStatus,
   getPostsError,
   fetchPosts,
 } from "./postsSlice";
-import { useEffect, useRef } from "react";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
@@ -23,8 +25,6 @@ const PostsList = () => {
         dispatch(fetchPosts());
       }
 
-      console.log("MOUNT");
-
       return () => {
         effectRan.current = true;
       };
@@ -33,7 +33,15 @@ const PostsList = () => {
 
   let content;
   if (postStatus === "loading") {
-    content = <p>Loading...</p>;
+    {
+      /* content = <p>Loading...</p>; */
+    }
+    content = (
+      <Stack spacing={1}>
+        <Skeleton variant="rounded" width={500} height={100} />
+        <Skeleton variant="rounded" width={500} height={100} />
+      </Stack>
+    );
   } else if (postStatus === "succeeded") {
     const orderedPosts = posts
       .slice()

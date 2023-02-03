@@ -1,0 +1,19 @@
+.icons__container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.icon {
+  color: #009e8b;
+  // &--coffee {
+  //   color: #009e8b;
+  // }
+}
+
+.reactionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

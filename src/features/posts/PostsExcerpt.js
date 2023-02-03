@@ -7,13 +7,13 @@ import "./PostsExcerpt.scss";
 
 let PostsExcerpt = ({ post }) => {
   return (
-    <article className="posts__excerpt">
-      <h2 className="posts__excerpt__heading">
+    <article className="posts">
+      <h2 className="posts__heading">
         {post.title.substring(0, 50)}
         {post.title.length > 60 ? "..." : ""}
       </h2>
-      <p className="posts__excerpt__text">{post.body.substring(0, 75)}...</p>
-      <p className="posts__excerpt__credit">
+      <p className="posts__text">{post.body.substring(0, 75)}...</p>
+      <p className="posts__credit">
         <Link to={`post/${post.id}`}>View Post</Link>
         <PostAuthor userId={post.userId} />
         <TimeAgo timestamp={post.date} />

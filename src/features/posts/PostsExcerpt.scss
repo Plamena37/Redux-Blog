@@ -1,4 +1,4 @@
-.posts__excerpt {
+.posts {
   display: grid;
   grid-template-rows: 40% 30% 20% 10%;
   margin: 0.5em;
@@ -46,7 +46,7 @@
 
   &__heading {
     font-size: 2rem;
-    color: #232b19;
+    color: #354126;
   }
 
   &__text {
@@ -62,6 +62,7 @@
     a:visited {
       margin-right: 0.5rem;
       color: #000;
+      transition: all 0.3s;
     }
     a:hover,
     a:active {

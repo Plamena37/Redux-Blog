@@ -1,19 +1,26 @@
 import { Link } from "react-router-dom";
+import "./Header.scss";
 
 const Header = () => {
   return (
-    <header className="Header">
+    <header className="header">
       <h1>Redux Blog</h1>
-      <nav>
-        <ul>
+      <nav className="header__navigation">
+        <ul className="header__list">
           <li>
-            <Link to="/">Home</Link>
+            <Link className="header__link" to="/">
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="post">Post</Link>
+            <Link className="header__link" to="post">
+              Post
+            </Link>
           </li>
           <li>
-            <Link to="user">Users</Link>
+            <Link className="header__link" to="user">
+              Users
+            </Link>
           </li>
         </ul>
       </nav>

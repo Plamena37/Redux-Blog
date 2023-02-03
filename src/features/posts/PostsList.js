@@ -3,6 +3,7 @@ import { selectAllPosts, getPostsStatus, getPostsError } from "./postsSlice";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import PostsExcerpt from "./PostsExcerpt";
+import "./PostsList.scss";
 
 const PostsList = () => {
   // const effectRan = useRef(false);
@@ -28,10 +29,9 @@ const PostsList = () => {
   let content;
   if (postStatus === "loading") {
     content = (
-      <Stack spacing={1}>
-        <Skeleton variant="rounded" width={500} height={250} />
-        <Skeleton variant="rounded" width={500} height={250} />
-        <Skeleton variant="rounded" width={500} height={250} />
+      <Stack spacing={3}>
+        <Skeleton variant="rounded" width={1200} height={250} />
+        <Skeleton variant="rounded" width={1200} height={250} />
       </Stack>
     );
   } else if (postStatus === "succeeded") {
@@ -45,11 +45,6 @@ const PostsList = () => {
     content = <p>{error}</p>;
   }
 
-  return (
-    <section>
-      {/* <h2>Posts</h2> */}
-      {content}
-    </section>
-  );
+  return <section className="posts__list">{content}</section>;
 };
 export default PostsList;

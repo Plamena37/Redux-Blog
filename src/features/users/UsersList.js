@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectAllUsers } from "./usersSlice";
 import { Link } from "react-router-dom";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import "./UsersList.scss";
 
 const UsersList = () => {
@@ -14,7 +15,10 @@ const UsersList = () => {
 
   return (
     <section className="layout__container section__users">
-      <h2>Users</h2>
+      <div className="section__users__heading">
+        <h2>Users</h2>
+        <PeopleAltIcon className="section__users__heading--icon" />
+      </div>
 
       <ul className="users__list">{renderedUsers}</ul>
     </section>

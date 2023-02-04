@@ -2,8 +2,22 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPostById, updatePost, deletePost } from "./postsSlice";
 import { useParams, useNavigate } from "react-router-dom";
-
 import { selectAllUsers } from "../users/usersSlice";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import "./PostForms.scss";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // light: "#009e8b",
+      main: "#009e8b",
+      // dark: "#009e8b",
+    },
+  },
+});
 
 const EditPostForm = () => {
   const { postId } = useParams();
@@ -61,11 +75,11 @@ const EditPostForm = () => {
     }
   };
 
-  const usersOptions = users.map((user) => (
-    <option key={user.id} value={user.id}>
-      {user.name}
-    </option>
-  ));
+  // const usersOptions = users.map((user) => (
+  //   <option key={user.id} value={user.id}>
+  //     {user.name}
+  //   </option>
+  // ));
 
   const onDeletePostClicked = () => {
     try {
@@ -85,41 +99,89 @@ const EditPostForm = () => {
   };
 
   return (
-    <section>
-      <h2>Edit Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
-        <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          <option value=""></option>
-          {usersOptions}
-        </select>
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
-          Save Post
-        </button>
-        <button
-          className="deleteButton"
-          type="button"
-          onClick={onDeletePostClicked}
-        >
-          Delete Post
-        </button>
-      </form>
-    </section>
+    <ThemeProvider theme={theme}>
+      <section className="form__section">
+        <div className="form__section__heading">
+          <h2>Edit Post</h2>
+          <AutoFixHighIcon className="form__section__heading--icon" />
+        </div>
+        <form className="form">
+          <TextField
+            id="postTitle"
+            name="postTitle"
+            type="text"
+            label="Post Title"
+            value={title}
+            onChange={onTitleChanged}
+            // variant="standard"
+            InputLabelProps={{
+              shrink: true,
+              style: {
+                color: "#009e8b",
+                fontSize: "1.2rem",
+              },
+            }}
+          />
+
+          <TextField
+            id="postAuthor"
+            value={userId}
+            onChange={onAuthorChanged}
+            select
+            label="Author"
+            // variant="filled"
+            InputLabelProps={{
+              shrink: true,
+              style: {
+                color: "#009e8b",
+                fontSize: "1.2rem",
+              },
+            }}
+          >
+            {users.map((user) => (
+              <MenuItem key={user.id} value={user.id}>
+                {user.name}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            id="postContent"
+            name="postContent"
+            value={content}
+            onChange={onContentChanged}
+            label="Content"
+            multiline
+            rows={4}
+            // variant="standard"
+            InputLabelProps={{
+              shrink: true,
+              style: {
+                color: "#009e8b",
+                fontSize: "1.2rem",
+              },
+            }}
+          />
+          <div className="btn__container">
+            <button
+              type="button"
+              className="btn btn--save"
+              onClick={onSavePostClicked}
+              disabled={!canSave}
+            >
+              Save Post
+            </button>
+            <button
+              className="btn btn--delete"
+              type="button"
+              onClick={onDeletePostClicked}
+            >
+              Delete Post
+            </button>
+          </div>
+        </form>
+      </section>
+    </ThemeProvider>
   );
 };
 

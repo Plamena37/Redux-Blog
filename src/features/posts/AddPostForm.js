@@ -4,6 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "./PostForms.scss";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // light: "#009e8b",
+      main: "#009e8b",
+      // dark: "#009e8b",
+    },
+  },
+});
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
@@ -42,41 +57,85 @@ const AddPostForm = () => {
     }
   };
 
-  const usersOptions = users.map((user) => (
-    <option key={user.id} value={user.id}>
-      {user.name}
-    </option>
-  ));
+  // const usersOptions = users.map((user) => (
+  //   <option key={user.id} value={user.id}>
+  //     {user.name}
+  //   </option>
+  // ));
 
   return (
-    <section>
-      <h2>Add a New Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
-        <label htmlFor="postAuthor">Author:</label>
-        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          <option value=""></option>
-          {usersOptions}
-        </select>
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
-          Save Post
-        </button>
-      </form>
-    </section>
+    <ThemeProvider theme={theme}>
+      <section className="form__section">
+        <div className="form__section__heading">
+          <h2>Add a New Post</h2>
+          <PostAddIcon className="form__section__heading--icon" />
+        </div>
+
+        <form className="form">
+          <TextField
+            type="text"
+            id="postTitle"
+            name="postTitle"
+            label="Post Title"
+            value={title}
+            onChange={onTitleChanged}
+            // variant="filled"
+            InputLabelProps={{
+              style: {
+                color: "#009e8b",
+              },
+            }}
+          />
+
+          <TextField
+            id="postAuthor"
+            value={userId}
+            onChange={onAuthorChanged}
+            select
+            label="Author"
+            // variant="filled"
+            InputLabelProps={{
+              style: {
+                color: "#009e8b",
+                fontSize: "1.2rem",
+              },
+            }}
+          >
+            {users.map((user) => (
+              <MenuItem key={user.id} value={user.id}>
+                {user.name}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            id="postContent"
+            name="postContent"
+            value={content}
+            onChange={onContentChanged}
+            label="Content"
+            multiline
+            rows={4}
+            // variant="standard"
+            InputLabelProps={{
+              style: {
+                color: "#009e8b",
+                fontSize: "1.2rem",
+              },
+            }}
+          />
+
+          <button
+            className="btn btn--save"
+            type="button"
+            onClick={onSavePostClicked}
+            disabled={!canSave}
+          >
+            Save Post
+          </button>
+        </form>
+      </section>
+    </ThemeProvider>
   );
 };
 export default AddPostForm;

@@ -22,16 +22,18 @@ const PostDetail = () => {
   }
 
   return (
-    <article className="post__detail">
-      <h2 className="posts__heading heading--large">{post.title}</h2>
-      <p className="posts__text">{post.body}</p>
-      <p className="posts__credit">
-        <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
-        <PostAuthor userId={post.userId} />
-        <TimeAgo timestamp={post.date} />
-      </p>
-      <ReactionButtons post={post} />
-    </article>
+    <div className="post__container">
+      <article className="post__detail">
+        <h2 className="posts__heading heading--large">{post.title}</h2>
+        <p className="posts__text">{post.body}</p>
+        <p className="posts__credit">
+          <Link to={`/post/edit/${post.id}`}>Edit Post</Link>
+          <PostAuthor userId={post.userId} />
+          <TimeAgo timestamp={post.date} />
+        </p>
+        <ReactionButtons post={post} />
+      </article>
+    </div>
   );
 };
 

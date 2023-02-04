@@ -11,28 +11,23 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  // bg-1, bg-3, bg-5, bg-7
+  // bg-6, bg-9
+  // min-height: 150vh;
+  height: 100%;
   font-size: 1.5rem;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.7),
+      rgb(57, 179, 133, 0.6)
+    ),
+    url("../src/images/bg-6.jpg");
+  background-position: center;
+  background-position: top;
+  // background-size: cover;
+  background-size: auto;
+  background-repeat: repeat;
 }
-
-input,
-textarea,
-button,
-select {
-  font: inherit;
-  margin-bottom: 1em;
-}
-
-section {
-  margin-top: 1em;
-}
-
-// article {
-//   margin: 0.5em;
-//   border: 1px solid #000;
-//   border-radius: 10px;
-//   padding: 1em;
-// }
 
 h1 {
   font-size: 3.5rem;
@@ -47,11 +42,6 @@ p {
   line-height: 1.4;
   font-size: 1.2rem;
   margin: 0.5em 0;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
 }
 
 textarea {

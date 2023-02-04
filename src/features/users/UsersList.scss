@@ -1,0 +1,31 @@
+.section__users {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #232b19;
+}
+
+.users__list {
+  list-style: decimal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+
+  &__link a {
+    &:link,
+    &:visited {
+      color: #232b19;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    &:hover,
+    &:active {
+      color: #009e8b;
+      border-bottom: 1px solid #009e8b;
+    }
+  }
+}

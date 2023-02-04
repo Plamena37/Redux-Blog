@@ -100,7 +100,7 @@ const EditPostForm = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <section className="form__section">
+      <section className="layout__container form__section">
         <div className="form__section__heading">
           <h2>Edit Post</h2>
           <AutoFixHighIcon className="form__section__heading--icon" />

@@ -45,6 +45,6 @@ const PostsList = () => {
     content = <p>{error}</p>;
   }
 
-  return <section className="posts__list">{content}</section>;
+  return <section className="layout__container posts__list">{content}</section>;
 };
 export default PostsList;

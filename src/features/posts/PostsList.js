@@ -4,6 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import PostsExcerpt from "./PostsExcerpt";
 import "./PostsList.scss";
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 const PostsList = () => {
   // const effectRan = useRef(false);
@@ -30,8 +31,8 @@ const PostsList = () => {
   if (postStatus === "loading") {
     content = (
       <Stack spacing={3}>
-        <Skeleton variant="rounded" width={1200} height={250} />
-        <Skeleton variant="rounded" width={1200} height={250} />
+        <Skeleton variant="rounded" width={700} height={250} />
+        <Skeleton variant="rounded" width={700} height={250} />
       </Stack>
     );
   } else if (postStatus === "succeeded") {

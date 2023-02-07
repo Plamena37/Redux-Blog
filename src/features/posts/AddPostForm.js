@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useSnackbar } from "notistack";
 import "./PostForms.scss";
 
 const theme = createTheme({
@@ -22,6 +22,8 @@ const theme = createTheme({
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
@@ -48,9 +50,17 @@ const AddPostForm = () => {
         setTitle("");
         setContent("");
         setUserId("");
+        enqueueSnackbar("Post published!", {
+          preventDuplicate: true,
+          variant: "success",
+        });
         navigate("/");
       } catch (err) {
         console.error("Failed to save the post", err);
+        enqueueSnackbar(err.message, {
+          preventDuplicate: true,
+          variant: "error",
+        });
       } finally {
         setAddRequestStatus("idle");
       }

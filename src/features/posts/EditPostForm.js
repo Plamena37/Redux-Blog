@@ -7,6 +7,13 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useSnackbar } from "notistack";
 import "./PostForms.scss";
 
 const theme = createTheme({
@@ -23,6 +30,8 @@ const EditPostForm = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const post = useSelector((state) => selectPostById(state, Number(postId)));
   const users = useSelector(selectAllUsers);
 
@@ -30,6 +39,8 @@ const EditPostForm = () => {
   const [content, setContent] = useState(post?.body);
   const [userId, setUserId] = useState(post?.userId);
   const [requestStatus, setRequestStatus] = useState("idle");
+
+  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -44,6 +55,14 @@ const EditPostForm = () => {
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(Number(e.target.value));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const canSave =
     [title, content, userId].every(Boolean) && requestStatus === "idle";
@@ -65,21 +84,22 @@ const EditPostForm = () => {
         setTitle("");
         setContent("");
         setUserId("");
+        enqueueSnackbar("Post was saved!", {
+          preventDuplicate: true,
+          variant: "success",
+        });
         navigate(`/post/${postId}`);
       } catch (err) {
         console.error("Failed to save the post", err);
-        // FIX MUI DIALOG
+        enqueueSnackbar(err.message, {
+          preventDuplicate: true,
+          variant: "error",
+        });
       } finally {
         setRequestStatus("idle");
       }
     }
   };
-
-  // const usersOptions = users.map((user) => (
-  //   <option key={user.id} value={user.id}>
-  //     {user.name}
-  //   </option>
-  // ));
 
   const onDeletePostClicked = () => {
     try {
@@ -89,14 +109,44 @@ const EditPostForm = () => {
       setTitle("");
       setContent("");
       setUserId("");
+      enqueueSnackbar("Post was deleted!", {
+        preventDuplicate: true,
+        variant: "success",
+      });
       navigate("/");
     } catch (err) {
       console.error("Failed to delete the post", err);
-      // FIX MUI DIALOG/notistack
+      enqueueSnackbar(err.message, {
+        preventDuplicate: true,
+        variant: "error",
+      });
     } finally {
       setRequestStatus("idle");
     }
   };
+
+  const dialog = (
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Do you really want to delete this post? Press "Yes" for further action
+          or "No" to go back.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>No</Button>
+        <Button onClick={onDeletePostClicked} autoFocus>
+          Yes
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -174,10 +224,11 @@ const EditPostForm = () => {
             <button
               className="btn btn--delete"
               type="button"
-              onClick={onDeletePostClicked}
+              onClick={handleClickOpen}
             >
               Delete Post
             </button>
+            {dialog}
           </div>
         </form>
       </section>

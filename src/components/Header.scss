@@ -10,7 +10,10 @@
   top: 0;
   z-index: 99;
 
-  &__navigation {
+  &__link--special {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.4rem;
   }
 
   &__list {
@@ -25,6 +28,7 @@
     color: inherit;
     border-bottom: inset 1px transparent;
     transition: all 0.3s;
+    display: inline-block;
   }
 
   &__link:hover,
@@ -32,5 +36,6 @@
     text-decoration: none;
     color: #dddddd;
     border-bottom: inset 1px #dddddd;
+    transform: translateY(-0.2rem) scale(1.03);
   }
 }

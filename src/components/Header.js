@@ -4,7 +4,9 @@ import "./Header.scss";
 const Header = () => {
   return (
     <header className="header">
-      <h1>Redux Blog</h1>
+      <Link to="/" className="header__link--special">
+        <h1>Redux Blog</h1>
+      </Link>
       <nav className="header__navigation">
         <ul className="header__list">
           <li>

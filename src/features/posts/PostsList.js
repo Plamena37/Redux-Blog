@@ -4,7 +4,6 @@ import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import PostsExcerpt from "./PostsExcerpt";
 import "./PostsList.scss";
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 const PostsList = () => {
   // const effectRan = useRef(false);
